@@ -4,7 +4,6 @@ import { useFormspark } from "@formspark/use-formspark";
 
 import logo from "./assets/svg/nubanq-logo.svg";
 import twitter from "./assets/svg/twitter.svg";
-import plus from "./assets/svg/plus.svg";
 import "./index.css";
 import { LogoCarousel } from "./components/ui/logo-carousel";
 import allLogos from "./components/logos";
@@ -67,23 +66,18 @@ function App() {
 									Follow us on <img src={twitter} alt="X logo" className="w-auto h-6" />
 								</Button>
 							</a>
-
-							{/* <button className="bg-black hover:bg-gray-800 text-white px-4 py-2 rounded-lg transition-colors flex items-center">
-								<svg className="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 24 24">
-									<path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z" />
-								</svg>
-								Download on iOS
-							</button> */}
 						</nav>
 
 						{/* Mobile menu button */}
 						<div className="md:hidden">
-							<Button
-								variant="ghost"
-								className="font-light text-sm text-black text-1.5xl hover:text-gray-900 transition-colors"
-							>
-								Follow on <img src={twitter} alt="X logo" className="w-auto h-5" />
-							</Button>
+							<a href="https://x.com/NubanqOfficial" target="_blank">
+								<Button
+									variant="ghost"
+									className="font-light text-sm text-black text-1.5xl hover:text-gray-900 transition-colors"
+								>
+									Follow on <img src={twitter} alt="X logo" className="w-auto h-5" />
+								</Button>
+							</a>
 						</div>
 					</div>
 				</div>
@@ -98,7 +92,7 @@ function App() {
 					marginLeft: windowWidth < 640 && (windowWidth - windowWidth * 0.9) / 2,
 				}}
 			>
-				<div className="h-full flex flex-col px-5 md:px-0 gap-10 sm:gap-20 lg:gap-0 sm:flex-row items-center sm:justify-center-safe xl:justify-around">
+				<div className="h-full flex flex-col px-5 xl:px-15 gap-10 sm:gap-20 lg:gap-0 sm:flex-row items-center sm:justify-center-safe xl:justify-around">
 					{/* Left Column - Text Content */}
 					<div className="lg:flex-none space-y-4 lg:space-y-8">
 						<div className="space-y-4 sm:space-y-5 lg:space-y-6 flexflex-col items-center text-center sm:text-left">
@@ -106,8 +100,9 @@ function App() {
 								Be your <span className="block">own bank</span>
 							</h1>
 
-							<p className="text-lg sm:text-sm md:text-lg text-gray-400 max-w-md leading-relaxed 2xl:text-3xl 2xl:leading-normal">
-								Turn any crypto wallet into<span className="block">a self-custody bank</span>
+							<p className="text-lg sm:text-sm md:text-lg lg:text-xl text-gray-400 max-w-md leading-relaxed 2xl:text-3xl 2xl:leading-normal">
+								Turn any crypto wallet into
+								<span className="block">a self-custody bank account.</span>
 							</p>
 						</div>
 
@@ -118,7 +113,6 @@ function App() {
 							<input
 								value={message}
 								onChange={(e) => setMessage(e.target.value)}
-								// type="email"
 								placeholder="Enter your email"
 								className="flex-1 px-4 py-3 border border-gray-300 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
 							/>
@@ -127,6 +121,7 @@ function App() {
 								disabled={submitting}
 								className=" bg-black border border-black hover:bg-gray-800 text-white w-full  lg:w-34 h-12  rounded-lg whitespace-nowrap transition-colors font-medium "
 							>
+								{/* Show loading animation inside submit button */}
 								{submitting ? (
 									<svg className="animate-spin h-5 w-5 mx-auto" viewBox="0 0 24 24">
 										<circle
@@ -155,12 +150,6 @@ function App() {
 							</p>
 						) : null}
 						<div className="flex sm:hidden lg:flex flex-row justify-center sm:justify-start items-center gap-2 pt-3 sm:pt-0">
-							{/* <img
-								src="./src/assets/img/app-icon.png"
-								alt="Nubanq App Icon"
-								className="w-20 h-20 rounded-2xl"
-							/>
-							<img src={plus} alt="Plus symbol" className="w-10 h-10 -mr-2" /> */}
 							<h2 className="text-xl md:text-2xl lg:text-4xl font-bold">Plug & Play</h2>
 							<LogoCarousel columnCount={1} logos={allLogos} />
 						</div>
@@ -191,8 +180,7 @@ function App() {
 				</div>
 			</main>
 
-			{/* Additional spacing for scroll demonstration */}
-
+			{/* Disclaimers & copyright */}
 			<div className="container flex flex-col px-6 sm:px-0 sm:mx-auto pb-5">
 				<div className="flex border-t-1 border-b-0 border-x-0 border-gray-200 mt-16 mb-10"></div>
 				<div className="flex flex-col md:flex-row gap-5">
