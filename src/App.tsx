@@ -92,7 +92,7 @@ function App() {
 					marginLeft: windowWidth < 640 && (windowWidth - windowWidth * 0.9) / 2,
 				}}
 			>
-				<div className="h-full flex flex-col px-5 xl:px-15 gap-10 sm:gap-20 lg:gap-0 sm:flex-row items-center sm:justify-center-safe xl:justify-around">
+				<div className="h-full flex flex-col px-5 xl:px-15 gap-10 sm:gap-15 lg:gap-0 sm:flex-row items-center sm:justify-center-safe xl:justify-around">
 					{/* Left Column - Text Content */}
 					<div className="lg:flex-none space-y-4 lg:space-y-8">
 						<div className="space-y-4 sm:space-y-5 lg:space-y-6 flexflex-col items-center text-center sm:text-left">
@@ -149,7 +149,7 @@ function App() {
 								<span className="font-bold">Success!</span> You've been added to the waitlist
 							</p>
 						) : null}
-						<div className="flex sm:hidden lg:flex flex-row justify-center sm:justify-start items-center gap-2 pt-3 sm:pt-0">
+						<div className="flex lg:flex flex-row justify-center sm:justify-start items-center gap-2 pt-3 sm:pt-0">
 							<h2 className="text-xl md:text-2xl lg:text-4xl font-bold">Plug & Play</h2>
 							<LogoCarousel columnCount={1} logos={allLogos} />
 						</div>
