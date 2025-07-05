@@ -47,17 +47,17 @@ function App() {
 		}
 	}, [success]);
 
-	console.log("document.fonts: ", document.fonts.status);
+	console.log("document.fonts.status: ", document.fonts.status);
 	console.log("document.fonts.ready: ", document.fonts.ready);
 
 	useEffect(() => {
 		// Wait for all images and fonts to load
-		if (imagesLoaded === totalImages && document.fonts.status === "loaded") {
+		if (imagesLoaded === totalImages && document.fonts && document.fonts.ready) {
 			setLoading(false);
 		} else {
 			setLoading(false);
 		}
-	}, [imagesLoaded, document.fonts.status]);
+	}, [imagesLoaded, document.fonts, document.fonts.ready]);
 
 	async function handleSubmit(e) {
 		e.preventDefault();
