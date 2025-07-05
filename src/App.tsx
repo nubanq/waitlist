@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { Button } from "./components/ui/button";
 import { useFormspark } from "@formspark/use-formspark";
+import { ScaleLoader } from "react-spinners";
 
 import logo from "./assets/svg/nubanq-logo.svg";
 import twitter from "./assets/svg/twitter.svg";
 import "./index.css";
 import { LogoCarousel } from "./components/ui/logo-carousel";
 import allLogos from "./components/logos";
+import nubanqAppAngle from "./assets/img/nubanq-app-angle.png";
+import nubanqAppFull from "./assets/img/nubanq-app-full.png";
+import nubanqAppVertical from "./assets/img/nubanq-app-vertical.png";
 
 const myFormId = "FSNoqgTfB";
 
@@ -17,6 +21,9 @@ function App() {
 	const [message, setMessage] = useState("");
 	const [success, setSuccess] = useState(false);
 	const [insideHeight, setInsideHeight] = useState((window.innerHeight - 100) * 0.93 * 0.95);
+	const [loading, setLoading] = useState(true);
+	const [imagesLoaded, setImagesLoaded] = useState(0);
+	const totalImages = 3;
 
 	useEffect(() => {
 		function handleResize() {
@@ -38,6 +45,18 @@ function App() {
 			return () => clearTimeout(timer);
 		}
 	}, [success]);
+
+	console.log("document.fonts: ", document.fonts.status);
+	console.log("document.fonts.ready: ", document.fonts.ready);
+
+	useEffect(() => {
+		// Wait for all images and fonts to load
+		if (imagesLoaded === totalImages && document.fonts.status === "loaded") {
+			setLoading(false);
+		} else {
+			setLoading(false);
+		}
+	}, [imagesLoaded, document.fonts.status]);
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -92,92 +111,101 @@ function App() {
 					marginLeft: windowWidth < 640 && (windowWidth - windowWidth * 0.9) / 2,
 				}}
 			>
-				<div className="h-full flex flex-col px-5 xl:px-15 gap-10 sm:gap-15 lg:gap-0 sm:flex-row items-center sm:justify-center-safe xl:justify-around">
-					{/* Left Column - Text Content */}
-					<div className="lg:flex-none space-y-4 lg:space-y-8">
-						<div className="space-y-4 sm:space-y-5 lg:space-y-6 flexflex-col items-center text-center sm:text-left">
-							<h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold text-gray-900 leading-14 sm:leading-13 lg:leading-18 2xl:leading-28">
-								Be your <span className="block">own bank</span>
-							</h1>
+				{loading ? (
+					<div className="flex w-full h-full items-center justify-center">
+						<ScaleLoader color="#000" />
+					</div>
+				) : (
+					<div className="h-full flex flex-col px-5 xl:px-15 gap-10 sm:gap-15 lg:gap-0 sm:flex-row items-center sm:justify-center-safe xl:justify-around">
+						{/* Left Column - Text Content */}
+						<div className="lg:flex-none space-y-4 lg:space-y-8">
+							<div className="space-y-4 sm:space-y-5 lg:space-y-6 flexflex-col items-center text-center sm:text-left">
+								<h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold text-gray-900 leading-14 sm:leading-13 lg:leading-18 2xl:leading-28">
+									Be your <span className="block">own bank</span>
+								</h1>
 
-							<p className="text-lg sm:text-sm md:text-lg lg:text-xl text-gray-400 max-w-md leading-relaxed 2xl:text-3xl 2xl:leading-normal">
-								Turn any crypto wallet into
-								<span className="block">a self-custody bank account.</span>
-							</p>
-						</div>
+								<p className="text-lg sm:text-sm md:text-lg lg:text-xl text-gray-400 max-w-md leading-relaxed 2xl:text-3xl 2xl:leading-normal">
+									Turn any crypto wallet into
+									<span className="block">a self-custody bank account.</span>
+								</p>
+							</div>
 
-						<form
-							onSubmit={handleSubmit}
-							className="flex flex-col lg:flex-row gap-3 max-w-md items-center"
-						>
-							<input
-								value={message}
-								onChange={(e) => setMessage(e.target.value)}
-								placeholder="Enter your email"
-								className="flex-1 px-4 py-3 border border-gray-300 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
-							/>
-							<button
-								type="submit"
-								disabled={submitting}
-								className=" bg-black border border-black hover:bg-gray-800 text-white w-full  lg:w-34 h-12  rounded-lg whitespace-nowrap transition-colors font-medium "
+							<form
+								onSubmit={handleSubmit}
+								className="flex flex-col lg:flex-row gap-3 max-w-md items-center"
 							>
-								{/* Show loading animation inside submit button */}
-								{submitting ? (
-									<svg className="animate-spin h-5 w-5 mx-auto" viewBox="0 0 24 24">
-										<circle
-											className="opacity-25"
-											cx="12"
-											cy="12"
-											r="10"
-											stroke="white"
-											strokeWidth="4"
-											fill="none"
-										/>
-										<path
-											className="opacity-75"
-											fill="white"
-											d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
-										/>
-									</svg>
-								) : (
-									"Join Waitlist"
-								)}
-							</button>
-						</form>
-						{success ? (
-							<p className="text-xs text-center lg:-mt-3">
-								<span className="font-bold">Success!</span> You've been added to the waitlist
-							</p>
-						) : null}
-						<div className="flex lg:flex flex-row justify-center sm:justify-start items-center gap-2 pt-3 sm:pt-0">
-							<h2 className="text-xl md:text-2xl lg:text-4xl font-bold">Plug & Play</h2>
-							<LogoCarousel columnCount={1} logos={allLogos} />
+								<input
+									value={message}
+									onChange={(e) => setMessage(e.target.value)}
+									placeholder="Enter your email"
+									className="flex-1 px-4 py-3 border border-gray-300 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+								/>
+								<button
+									type="submit"
+									disabled={submitting}
+									className=" bg-black border border-black hover:bg-gray-800 text-white w-full  lg:w-34 h-12  rounded-lg whitespace-nowrap transition-colors font-medium "
+								>
+									{/* Show loading animation inside submit button */}
+									{submitting ? (
+										<svg className="animate-spin h-5 w-5 mx-auto" viewBox="0 0 24 24">
+											<circle
+												className="opacity-25"
+												cx="12"
+												cy="12"
+												r="10"
+												stroke="white"
+												strokeWidth="4"
+												fill="none"
+											/>
+											<path
+												className="opacity-75"
+												fill="white"
+												d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"
+											/>
+										</svg>
+									) : (
+										"Join Waitlist"
+									)}
+								</button>
+							</form>
+							{success ? (
+								<p className="text-xs text-center lg:-mt-3">
+									<span className="font-bold">Success!</span> You've been added to the waitlist
+								</p>
+							) : null}
+							<div className="flex lg:flex flex-row justify-center sm:justify-start items-center gap-2 pt-3 sm:pt-0">
+								<h2 className="text-xl md:text-2xl lg:text-4xl font-bold">Plug & Play</h2>
+								<LogoCarousel columnCount={1} logos={allLogos} />
+							</div>
 						</div>
-					</div>
 
-					{/* Right Column - Phone Mockup */}
-					<div className="self-center lg:self-end">
-						<div className="relative">
-							<img
-								src="./src/assets/img/nubanq-app-angle.png"
-								alt="Nubanq App"
-								className="hidden lg:block w-auto object-scale-down"
-								style={{ height: insideHeight }}
-							/>
-							<img
-								src="./src/assets/img/nubanq-app-full.png"
-								alt="Nubanq App"
-								className="hidden sm:block lg:hidden w-auto object-scale-down"
-								style={{ height: insideHeight * 0.9 }}
-							/>
-							<img
-								src="./src/assets/img/nubanq-app-vertical.png"
-								alt="Nubanq App"
-								className=" sm:hidden w-auto object-scale-down -mt-8"
-							/>
+						{/* Right Column - Phone Mockup */}
+						<div className="self-center lg:self-end">
+							<div className="relative">
+								<img
+									src={nubanqAppAngle}
+									alt="Nubanq App"
+									className="hidden lg:block w-auto object-scale-down"
+									style={{ height: insideHeight }}
+									onLoad={() => setImagesLoaded((c) => c + 1)}
+								/>
+								<img
+									src={nubanqAppFull}
+									alt="Nubanq App"
+									className="hidden sm:block lg:hidden w-auto object-scale-down"
+									style={{ height: insideHeight * 0.9 }}
+									onLoad={() => setImagesLoaded((c) => c + 1)}
+								/>
+								<img
+									src={nubanqAppVertical}
+									alt="Nubanq App"
+									className=" sm:hidden w-auto object-scale-down -mt-8"
+									onLoad={() => setImagesLoaded((c) => c + 1)}
+								/>
+							</div>
 						</div>
 					</div>
-				</div>
+				)}
 			</main>
 
 			{/* Disclaimers & copyright */}
