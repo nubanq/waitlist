@@ -23,6 +23,7 @@ function App() {
 	const [insideHeight, setInsideHeight] = useState((window.innerHeight - 100) * 0.93 * 0.95);
 	const [loading, setLoading] = useState(true);
 	const [imagesLoaded, setImagesLoaded] = useState(0);
+	const [emailError, setEmailError] = useState("");
 	const totalImages = 3;
 
 	useEffect(() => {
@@ -60,6 +61,23 @@ function App() {
 
 	async function handleSubmit(e) {
 		e.preventDefault();
+		// Email validation
+		if (!message) {
+			setEmailError("Please enter an email address");
+			return;
+		}
+		if (!message.includes("@")) {
+			setEmailError(`Email must contain an "@" sign.`);
+			return;
+		}
+		// Check for domain after @ sign
+		const atIndex = message.indexOf("@");
+		const domain = message.slice(atIndex + 1);
+		if (!domain || !/^[^@]+\.[a-zA-Z]{2,}$/.test(domain)) {
+			setEmailError("Please enter a valid email address");
+			return;
+		}
+		setEmailError("");
 		await submit({ message });
 		setSuccess(true);
 	}
@@ -135,11 +153,20 @@ function App() {
 								className="flex flex-col lg:flex-row gap-3 max-w-md items-center"
 							>
 								<input
+									type="email"
 									value={message}
-									onChange={(e) => setMessage(e.target.value)}
+									onChange={(e) => {
+										setMessage(e.target.value);
+										setEmailError("");
+									}}
 									placeholder="Enter your email"
-									className="flex-1 px-4 py-3 border border-gray-300 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+									className={
+										emailError
+											? "flex-1 px-4 py-3 border border-red-500 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent transition-all"
+											: "flex-1 px-4 py-3 border border-gray-300 w-full rounded-lg focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent transition-all"
+									}
 								/>
+
 								<button
 									type="submit"
 									disabled={submitting}
@@ -168,11 +195,14 @@ function App() {
 									)}
 								</button>
 							</form>
-							{success ? (
+							{success && (
 								<p className="text-xs text-center lg:-mt-3">
 									<span className="font-bold">Success!</span> You've been added to the waitlist
 								</p>
-							) : null}
+							)}
+							{emailError && (
+								<p className="text-red-500 text-xs text-center lg:-mt-3">{emailError}</p>
+							)}
 							<div className="flex lg:flex flex-row justify-center sm:justify-start items-center gap-2 pt-3 sm:pt-0">
 								<h2 className="text-xl md:text-2xl lg:text-4xl font-bold">Plug & Play</h2>
 								<LogoCarousel columnCount={1} logos={allLogos} />
