@@ -22,9 +22,7 @@ function App() {
 	const [success, setSuccess] = useState(false);
 	const [insideHeight, setInsideHeight] = useState((window.innerHeight - 100) * 0.93 * 0.95);
 	const [loading, setLoading] = useState(true);
-	const [imagesLoaded, setImagesLoaded] = useState(0);
 	const [emailError, setEmailError] = useState("");
-	const totalImages = 3;
 
 	useEffect(() => {
 		function handleResize() {
@@ -47,17 +45,15 @@ function App() {
 		}
 	}, [success]);
 
-	console.log("document.fonts.status: ", document.fonts.status);
-	console.log("document.fonts.ready: ", document.fonts.ready);
-
 	useEffect(() => {
-		// Wait for all images and fonts to load
-		if (imagesLoaded === totalImages && document.fonts && document.fonts.ready) {
+		if (document.fonts.status === "loaded") {
 			setLoading(false);
 		} else {
-			setLoading(false);
+			document.fonts.ready.then(() => {
+				setLoading(false);
+			});
 		}
-	}, [imagesLoaded, document.fonts, document.fonts.ready]);
+	}, []);
 
 	async function handleSubmit(e) {
 		e.preventDefault();
@@ -130,7 +126,7 @@ function App() {
 				}}
 			>
 				{loading ? (
-					<div className="flex w-full h-full items-center justify-center">
+					<div className="flex w-full h-dvh sm:h-full items-center justify-center">
 						<ScaleLoader color="#000" />
 					</div>
 				) : (
@@ -217,20 +213,17 @@ function App() {
 									alt="Nubanq App"
 									className="hidden lg:block w-auto object-scale-down"
 									style={{ height: insideHeight }}
-									onLoad={() => setImagesLoaded((c) => c + 1)}
 								/>
 								<img
 									src={nubanqAppFull}
 									alt="Nubanq App"
 									className="hidden sm:block lg:hidden w-auto object-scale-down"
 									style={{ height: insideHeight * 0.9 }}
-									onLoad={() => setImagesLoaded((c) => c + 1)}
 								/>
 								<img
 									src={nubanqAppVertical}
 									alt="Nubanq App"
 									className=" sm:hidden w-auto object-scale-down -mt-8"
-									onLoad={() => setImagesLoaded((c) => c + 1)}
 								/>
 							</div>
 						</div>
