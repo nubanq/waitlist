@@ -118,11 +118,12 @@ function App() {
 
 			{/* Hero Section */}
 			<main
-				className="container bg-gray-100 sm:mx-auto pt-12 sm:pt-0 px-4 sm:px-6 lg:p-0 xl:p-0 rounded-3xl sm:overflow-hidden"
+				className="container sm:mx-auto pt-12 sm:pt-0 px-4 sm:px-6 lg:p-0 xl:p-0 rounded-3xl sm:overflow-hidden"
 				style={{
 					height: windowWidth > 640 ? (windowHeight - 100) * 0.93 : null,
 					width: windowWidth < 640 && windowWidth * 0.9,
 					marginLeft: windowWidth < 640 && (windowWidth - windowWidth * 0.9) / 2,
+					backgroundColor: "#EEF2F6",
 				}}
 			>
 				{loading ? (
