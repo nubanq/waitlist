@@ -79,9 +79,9 @@ function App() {
 	}
 
 	return (
-		<div className="min-h-screen min-w-screen bg-gray-50">
+		<div className="min-h-screen min-w-screen">
 			{/* Sticky Header */}
-			<header className="sticky py-4 top-0 z-50 bg-gray-50/80 backdrop-blur-md border-0 border-gray-200">
+			<header className="sticky py-4 top-0 z-50 backdrop-blur-md border-0 border-gray-200">
 				<div className="container mx-auto px-4 sm:px-6 lg:px-8">
 					<div className="flex items-center justify-between h-16">
 						{/* Logo */}
@@ -123,7 +123,7 @@ function App() {
 					height: windowWidth > 640 ? (windowHeight - 100) * 0.93 : null,
 					width: windowWidth < 640 && windowWidth * 0.9,
 					marginLeft: windowWidth < 640 && (windowWidth - windowWidth * 0.9) / 2,
-					backgroundColor: "#EEF2F6",
+					backgroundColor: "#f5f6f9",
 				}}
 			>
 				{loading ? (
