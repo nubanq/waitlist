@@ -1,20 +1,28 @@
+// Dependencies
 import { useEffect, useState } from "react";
 import { Button } from "./components/ui/button";
 import { useFormspark } from "@formspark/use-formspark";
 import { ScaleLoader } from "react-spinners";
+import "./index.css";
 
+// Custom Components
+import { FooterSection } from "@/components/blocks/footer-section";
+import { LogoCarousel } from "./components/ui/logo-carousel";
+import { Badge } from "./components/ui/badge";
+import TermsOfServicePage from "@/pages/terms-of-service";
+import PrivacyPolicyPage from "@/pages/privacy-policy";
+
+// Images & Assets
 import logo from "./assets/svg/nubanq-logo.svg";
 import twitter from "./assets/svg/twitter.svg";
-import "./index.css";
-import { LogoCarousel } from "./components/ui/logo-carousel";
-import allLogos from "./components/logos";
 import nubanqAppAngle from "./assets/img/nubanq-app-angle.png";
 import nubanqAppFull from "./assets/img/nubanq-app-full.png";
 import nubanqAppVertical from "./assets/img/nubanq-app-vertical.png";
+import allLogos from "./components/logos";
 
 const myFormId = "FSNoqgTfB";
 
-function App() {
+function HomePage() {
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 	const [windowHeight, setWindowHeight] = useState(window.innerHeight);
 	const [submit, submitting] = useFormspark({ formId: myFormId });
@@ -86,7 +94,9 @@ function App() {
 					<div className="flex items-center justify-between h-16">
 						{/* Logo */}
 						<div className="flex items-center pl-2 sm:pl-0 space-x-2">
-							<img src={logo} alt="Logo" className="w-auto h-8 lg:h-10" />
+							<a href="/">
+								<img src={logo} alt="Logo" className="w-auto h-8 lg:h-10" />
+							</a>
 						</div>
 
 						{/* Navigation */}
@@ -133,15 +143,20 @@ function App() {
 				) : (
 					<div className="h-full flex flex-col px-5 xl:px-15 gap-10 sm:gap-15 lg:gap-0 sm:flex-row items-center sm:justify-center-safe xl:justify-around">
 						{/* Left Column - Text Content */}
-						<div className="lg:flex-none space-y-4 lg:space-y-8">
+						<div className="lg:flex-none space-y-4 lg:space-y-6">
 							<div className="space-y-4 sm:space-y-5 lg:space-y-6 flexflex-col items-center text-center sm:text-left">
 								<h1 className="text-5xl lg:text-7xl 2xl:text-8xl font-bold text-gray-900 leading-14 sm:leading-13 lg:leading-18 2xl:leading-28">
 									Be your <span className="block">own bank</span>
 								</h1>
 
 								<p className="text-lg sm:text-sm md:text-lg lg:text-xl text-gray-400 max-w-md leading-relaxed 2xl:text-3xl 2xl:leading-normal">
-									Turn any crypto wallet into
-									<span className="block">a self-custody bank account.</span>
+									Add banking services to
+									<span className="block">
+										your favorite wallet.
+										<span className="align-super text-xs font-bold">
+											<a href="#num1">1</a>
+										</span>
+									</span>
 								</p>
 							</div>
 
@@ -233,40 +248,38 @@ function App() {
 			</main>
 
 			{/* Disclaimers & copyright */}
-			<div className="container flex flex-col px-6 sm:px-0 sm:mx-auto pb-5">
-				<div className="flex border-t-1 border-b-0 border-x-0 border-gray-200 mt-16 mb-10"></div>
-				<div className="flex flex-col md:flex-row gap-5">
-					<div className="md:w-13 md:grow-3">
-						<p className=" text-gray-400 text-xs font-light">Disclaimers</p>
-						<ol className="list-decimal flex-col text-gray-400 text-xs font-light ml-4">
-							<li>
-								Nubanq is a financial technology company, not a bank or a digital asset
-								custodian.
-							</li>
-							<li>
-								All bank accounts are issued by Lead Bank. Fees may apply. Bridge Ventures LLC
-								(“Bridge”) is not a bank.
-							</li>
-							<li>
-								Nubanq enables users to perform banking-related services while being 100% in
-								control of their own funds.
-							</li>
-						</ol>
-					</div>
 
-					<div className="md:w-13 md:grow-3">
-						<p className=" text-gray-400 text-xs font-light">All rights reserved.</p>
-						<p className=" text-gray-400 text-xs font-light">
-							Bridge is a financial technology company and is the Program Manager responsible
-							for managing and operating the bank accounts on behalf of Lead Bank. Nubanq is not
-							a bank. Nubanq is a financial technology company and is the Platform Provider
-							responsible for the application, access, and management of bank accounts.
-						</p>
-					</div>
-				</div>
+			<div className="container flex flex-col px-6 sm:px-0 sm:mx-auto pb-5">
+				<div className="flex mt-10"></div>
+				<FooterSection />
 			</div>
 		</div>
 	);
 }
 
-export default App;
+function getCurrentPathname() {
+	if (typeof window === "undefined") {
+		return "/";
+	}
+
+	const trimmed = window.location.pathname.replace(/\/+$/, "");
+	if (trimmed === "") {
+		return "/";
+	}
+
+	return trimmed.toLowerCase();
+}
+
+export default function App() {
+	const path = getCurrentPathname();
+
+	if (path === "/terms" || path === "/terms-of-service") {
+		return <TermsOfServicePage />;
+	}
+
+	if (path === "/privacy" || path === "/privacy-policy") {
+		return <PrivacyPolicyPage />;
+	}
+
+	return <HomePage />;
+}
