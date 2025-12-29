@@ -37,16 +37,14 @@ export function KyuSubmissionPage() {
 	}, []);
 
 	return (
-		<div className="min-h-dvh min-w-screen">
-			<div className="flex h-lvh flex-col justify-center items-center">
-				<img
-					src={logo}
-					alt="Nubanq Logo"
-					className="w-auto lg:pl-1 h-12 sm:h-6 md:h-7 lg:h-9 xl:h-10 mb-6"
-				/>
-				<Lottie className="h-40 mb-2" animationData={arrowBack} loop autoplay />
-				<h2 className="text-xl font-medium">Go back to the app</h2>
-			</div>
+		<div className="flex min-h-dvh flex-col items-center justify-center">
+			<img
+				src={logo}
+				alt="Nubanq Logo"
+				className="w-auto lg:pl-1 h-12 sm:h-6 md:h-7 lg:h-9 xl:h-10 mb-6"
+			/>
+			<Lottie className="h-40 mb-2" animationData={arrowBack} loop autoplay />
+			<h2 className="text-xl font-medium">Go back to the app</h2>
 		</div>
 	);
 }
