@@ -11,6 +11,7 @@ import { LogoCarousel } from "./components/ui/logo-carousel";
 import { Badge } from "./components/ui/badge";
 import TermsOfServicePage from "@/pages/terms-of-service";
 import PrivacyPolicyPage from "@/pages/privacy-policy";
+import KyuSubmissionPage from "./pages/kyu-submission";
 
 // Images & Assets
 import logo from "./assets/svg/nubanq-logo.svg";
@@ -279,6 +280,10 @@ export default function App() {
 
 	if (path === "/privacy" || path === "/privacy-policy") {
 		return <PrivacyPolicyPage />;
+	}
+
+	if (path === "/kyu-submission" || path === "/kyu-submission") {
+		return <KyuSubmissionPage />;
 	}
 
 	return <HomePage />;

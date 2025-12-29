@@ -20,7 +20,7 @@
 			"@/*": ["./src/*"]
 		}
 	},
-	"include": ["src"],
+	"include": ["src", "src/pages/.tsx"],
 	"exclude": ["node_modules", "dist"],
 	"files": [],
 	"references": [
