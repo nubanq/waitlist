@@ -6,6 +6,7 @@ import "@/index.css";
 // Assets
 import logo from "@/assets/svg/nubanq-logo.svg";
 import arrowBack from "@/assets/json/left-arrow-green.json";
+import { Button } from "@/components/ui/button";
 
 export function KyuSubmissionPage() {
 	const [windowWidth, setWindowWidth] = useState(window.innerWidth);
@@ -44,7 +45,12 @@ export function KyuSubmissionPage() {
 				className="w-auto lg:pl-1 h-12 sm:h-6 md:h-7 lg:h-9 xl:h-10 mb-6"
 			/>
 			<Lottie className="h-40 mb-2" animationData={arrowBack} loop autoplay />
-			<h2 className="text-xl font-medium">Go back to the app</h2>
+
+			<a href="nubanq://welcome/account-setup">
+				<Button size="lg" className="text-lg">
+					Go back to app
+				</Button>
+			</a>
 		</div>
 	);
 }
